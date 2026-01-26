@@ -16,10 +16,13 @@ def home(request):
     return render(request, 'main/home.html', {'form':form})
 def teach(request):
     if request.method == "POST":
-        id_no = request.POST.get('id_no')
-        stud = studs.objects.get(id_no=id_no)
-        if stud:
-            return redirect(f"/teach2/{stud.id}")
+        try:
+            id_no = request.POST.get('id_no')
+            stud = studs.objects.get(id_no=id_no)
+            if stud:
+                return redirect(f"/teach2/{stud.id}")
+        except studs.DoesNotExist:
+            print("Student not found")
     return render(request, 'main/teach.html')
 
 
@@ -36,15 +39,15 @@ def teach2(request,id):
 stud1 = None
 grd = None
 def display(request):
-
+    
     if request.method == 'POST':
-        name =request.GET.get('name')
-        id_no = request.GET.get('id_no')
+        name =request.POST.get('name')
+        id_no = request.POST.get('id_no')
         global stud1
         global grd
         stud1 = studs.objects.get(id_no=id_no)
-        if stud1:
-            grd = grade.objects.get(student=stud1)
+        
+        grd = grade.objects.get(student=stud1)
             
 
     return render(request, 'main/display.html', {'studs': stud1, 'grades': grd})
