@@ -8,18 +8,21 @@ def home(request):
     if request.method == 'POST':
         form = studt(request.POST)
         if form.is_valid():
-            form.save()
-            grade1 = grade(student=form)
+            st = form.save(commit=False)
+            grade1 = grade(student=st)
+            st.save()
             grade1.save()
-
-    return render(request, 'home.html', {'form':form})
+        return redirect("/home")
+    return render(request, 'main/home.html', {'form':form})
 def teach(request):
-    if request.method == "GET":
-        id_no = request.GET.get('id_no')
+    if request.method == "POST":
+        id_no = request.POST.get('id_no')
         stud = studs.objects.get(id_no=id_no)
         if stud:
-            return redirect(f"/teach/{stud.id}")
-    return render(request, 'teach.html')
+            return redirect(f"/teach2/{stud.id}")
+    return render(request, 'main/teach.html')
+
+
 def teach2(request,id):
     stud = studs.objects.get(id=id)
     grd = grade.objects.get(student=stud)
@@ -34,7 +37,7 @@ stud1 = None
 grd = None
 def display(request):
 
-    if request.method == 'GET':
+    if request.method == 'POST':
         name =request.GET.get('name')
         id_no = request.GET.get('id_no')
         global stud1
@@ -44,4 +47,4 @@ def display(request):
             grd = grade.objects.get(student=stud1)
             
 
-    return render(request, 'display.html', {'studs': stud1, 'grades': grd})
+    return render(request, 'main/display.html', {'studs': stud1, 'grades': grd})
