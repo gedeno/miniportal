@@ -46,8 +46,14 @@ def display(request):
         global stud1
         global grd
         stud1 = studs.objects.get(id_no=id_no)
-        
-        grd = grade.objects.get(student=stud1)
-            
+        if stud1.id_no == id_no:
+            grd = grade.objects.get(student=stud1)
+            return redirect(f'/display2/{id_no}/')
+        else:
+            print("Student not found")
+    return render(request, 'main/display.html', {})
+def display2(request, id_no):
+    stud1 = studs.objects.get(id_no=id_no)
+    grd = grade.objects.get(student=stud1)
 
-    return render(request, 'main/display.html', {'studs': stud1, 'grades': grd})
+    return render(request, 'main/display2.html', {'grd': grd, 'stud1': stud1})
