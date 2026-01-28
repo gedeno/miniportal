@@ -52,17 +52,14 @@ def teach2(request,id):
 
 
 #display  student grades by id_no the templates are display and others 
-stud1 = None
-grd = None
+
 def display(request):
     if request.method == 'POST':
         name =request.POST.get('name')
         id_no = request.POST.get('id_no')
-        global stud1
-        global grd
         stud1 = studs.objects.get(id_no=id_no)
         if stud1:
-            return redirect(f'/display2/{stud1.id}/')
+            return redirect(f'/subjects1/{stud1.id}/')
     return render(request, 'main/display.html', {})
 
 def subjects1(request, id):
@@ -70,12 +67,13 @@ def subjects1(request, id):
     if request.method == 'POST':
         course_id = request.POST.get('course')
         couerse = courses.objects.get(course_name=course_id, student=stud1)
-        return redirect(f"/teach2/{couerse.id}/")
+        return redirect(f"/display2/{couerse.id}/")
     return render(request, 'main/subjects1.html', {})
 
-def display2(request, id_no):
-    stud1 = studs.objects.get(id_no=id_no)
-    grd = grade.objects.get(student=stud1)
+def display2(request, id):
+    std = studs.objects.get(id=id)
+    course = courses.objects.get(id=id)
+    grd = assessments.objects.get(course=course)
     sum_total = (grd.quiz1 + grd.quiz2 + grd.assignment + grd.assignment2 + grd.mid_exam + grd.final_exam)
     if sum_total >= 90:
         sum_total = f"{sum_total} : A+"
@@ -99,4 +97,4 @@ def display2(request, id_no):
         sum_total = f"{sum_total} : D"
     else:
         sum_total = f"{sum_total} : F"
-    return render(request, 'main/display2.html', {'grd': grd, 'stud1': stud1, 'sum_total': sum_total})
+    return render(request, 'main/display2.html', {'grd': grd, 'stud1': course, 'sum_total': sum_total,'std':std})
