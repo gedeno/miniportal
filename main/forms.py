@@ -1,12 +1,17 @@
 from django.forms import ModelForm
-from.models import studs, grade
+from.models import studs, assessments, courses
 
 class studt(ModelForm):
     class Meta:
         model = studs
         fields = ['name', 'id_no', 'age']
-class studG(ModelForm):
+class formcourse(ModelForm):
     class Meta:
-        model = grade
+        model = courses
+        fields = ['course_name']
+
+class formgrade(ModelForm):
+    class Meta:
+        model = assessments
         fields = ['quiz1','quiz2','assignment','assignment2','mid_exam','final_exam']
        
