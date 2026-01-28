@@ -26,5 +26,6 @@ class assessments(models.Model):
     mid_exam = models.FloatField(default=0)
     final_exam = models.FloatField(default=0)
     course = models.ForeignKey(courses, on_delete=models.CASCADE)
+    student = models.ForeignKey(studs, on_delete=models.CASCADE)
     def __str__(self):  
         return f"Grades of {self.student.name}"
