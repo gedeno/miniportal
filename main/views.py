@@ -14,7 +14,7 @@ def home(request):
             print(st.name)
             for sub in subjects:
                 course1 = courses(course_name = sub, student=st)
-                assessment = assessments(course = course1) 
+                assessment = assessments(course = course1,student=st) 
                 course1.save()
                 assessment.save()
 
