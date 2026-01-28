@@ -49,23 +49,30 @@ def teach2(request,id):
         if form.is_valid():
             form.save()
     return render(request,'main/teachh.html',{'form':form})
-'''
+
+
+#display  student grades by id_no the templates are display and others 
 stud1 = None
 grd = None
 def display(request):
-    
     if request.method == 'POST':
         name =request.POST.get('name')
         id_no = request.POST.get('id_no')
         global stud1
         global grd
         stud1 = studs.objects.get(id_no=id_no)
-        if stud1.id_no == id_no:
-            grd = grade.objects.get(student=stud1)
-            return redirect(f'/display2/{id_no}/')
-        else:
-            print("Student not found")
+        if stud1:
+            return redirect(f'/display2/{stud1.id}/')
     return render(request, 'main/display.html', {})
+
+def subjects1(request, id):
+    stud1 = studs.objects.get(id=id)
+    if request.method == 'POST':
+        course_id = request.POST.get('course')
+        couerse = courses.objects.get(course_name=course_id, student=stud1)
+        return redirect(f"/teach2/{couerse.id}/")
+    return render(request, 'main/subjects1.html', {})
+
 def display2(request, id_no):
     stud1 = studs.objects.get(id_no=id_no)
     grd = grade.objects.get(student=stud1)
@@ -93,4 +100,3 @@ def display2(request, id_no):
     else:
         sum_total = f"{sum_total} : F"
     return render(request, 'main/display2.html', {'grd': grd, 'stud1': stud1, 'sum_total': sum_total})
-'''
