@@ -9,5 +9,5 @@ urlpatterns = [
     path('disp/',views.display),
     path('subjects1/<int:id>/',views.subjects1),
     path('display2/<int:id>/',views.display2),
-   
+    
 ]

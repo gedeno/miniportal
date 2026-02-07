@@ -49,10 +49,6 @@ def teach2(request,id):
         if form.is_valid():
             form.save()
     return render(request,'main/teachh.html',{'form':form})
-
-
-#display  student grades by id_no the templates are display and others 
-
 def display(request):
     if request.method == 'POST':
         name =request.POST.get('name')
