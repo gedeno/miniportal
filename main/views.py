@@ -73,7 +73,7 @@ def display2(request, id):
     sum_total = (grd.quiz1 + grd.quiz2 + grd.assignment + grd.assignment2 + grd.mid_exam + grd.final_exam)
     if sum_total >= 90:
         sum_total = f"{sum_total} : A+"
-    if sum_total >= 85:
+    elif sum_total >= 85:
         sum_total = f"{sum_total} : A"
     elif sum_total >= 80:
         sum_total = f"{sum_total} : A-"
