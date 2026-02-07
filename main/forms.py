@@ -4,7 +4,7 @@ from.models import studs, assessments, courses
 class studt(ModelForm):
     class Meta:
         model = studs
-        fields = ['name', 'id_no', 'age']
+        fields = ['profile','name', 'id_no', 'age']
 class formcourse(ModelForm):
     class Meta:
         model = courses

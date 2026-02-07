@@ -7,7 +7,7 @@ def home(request):
     form = studt()
     subjects = ['Mathematics', 'Physics', 'Chemistry', 'Biology', 'English']
     if request.method == 'POST':
-        form = studt(request.POST)
+        form = studt(request.POST,request.FILES)
         if form.is_valid():
             st = form.save(commit=False)
             st.save()

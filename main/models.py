@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 
 class studs(models.Model):
+    profile = models.ImageField(upload_to='photos/')
     name = models.CharField(max_length=100)
     id_no = models.CharField(max_length=20,unique=True)
     age = models.IntegerField()
