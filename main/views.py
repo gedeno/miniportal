@@ -17,7 +17,6 @@ def home(request):
                 assessment = assessments(course = course1,student=st) 
                 course1.save()
                 assessment.save()
-
             return redirect("/home")
     return render(request, 'main/home.html', {'form':form})
 
