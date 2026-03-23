@@ -17,7 +17,8 @@ def home(request):
                 assessment = assessments(course = course1,student=st) 
                 course1.save()
                 assessment.save()
-            return redirect("/home")
+            return redirect("/home") 
+        
     return render(request, 'main/home.html', {'form':form})
 
 def teach(request):
@@ -29,6 +30,7 @@ def teach(request):
                 return redirect(f"/subject/{stud.id}")
         except studs.DoesNotExist:
             print("Student not found")
+            
     return render(request, 'main/teach.html')
 
 def Subject(request , id):
